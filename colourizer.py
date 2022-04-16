@@ -9,116 +9,84 @@
 # this stuff is worth it, you can buy me a beer in return.   Berke Altıparmak
 # ----------------------------------------------------------------------------
 
-import requests
 import time
-
-URL = "https://random-data-api.com/api/color/random_color"
-
+import random
+from rgb2hex import RGBtoHEX
 
 class Colourizer:
-    def __init__(self, id, uid, hex_value, color_name, hsl_value, hsla_value):
-        self.id = id
-        self.uid = uid
+    def __init__(self, rgb_value, hex_value):
+        self.rgb_value = rgb_value
+        self.rgba_value = rgba_value
         self.hex_value = hex_value
-        self.color_name = color_name
         self.hsl_value = hsl_value
         self.hsla_value = hsla_value
 
-    def randContinuously():
+    def randContinuously(speed: int = 1, console: bool = False):
+        """
+        The first argument is the speed of the loop. The second argument decides whether it will print the data on the console or not.
+        Speed is in seconds and the default value is defined as 1 second.
+                 
+        """
         count = 0
         while True:
-            response = requests.get(URL)
-            page = response.json()
-
-            # DATA FETCH COUNT
             count += 1
             for x in range(0, 10000, 10):
                 if count == x:
-                    print(f"Data fetched {count} times! ")
-
-            Colourizer.id = page["id"]
-            Colourizer.uid = page["uid"]
-            Colourizer.hex_value = page["hex_value"]
-            Colourizer.color_name = page["color_name"]
-            Colourizer.hsl_value = page["hsl_value"]
-            Colourizer.hsla_value = page["hsla_value"]
+                    print(f"Iterated {count} times! ")
+                    
+            RED = random.randint(0,255)
+            GREEN = random.randint(0,255)
+            BLUE = random.randint(0,255)
+            
+            Colourizer.rgb_value = f"({RED},{GREEN},{BLUE})"
+            Colourizer.hex_value = RGBtoHEX(RED, GREEN, BLUE)
 
             print(
                 f"""
             ************************************
-            * ID: {Colourizer.id} \r
-            * UID: {Colourizer.uid}
+            * RGB: {Colourizer.rgb_value} \r
             * Hex Value: {Colourizer.hex_value}
-            * Color Name: {Colourizer.color_name}
-            * HSL Value: {Colourizer.hsl_value}
-            * HSLA Value: {Colourizer.hsla_value}
             ************************************
             """
             )
-            time.sleep(1)
+            time.sleep(speed)
 
-    def rand(console: bool = False) -> dict:
+    def randRGB(console: bool = False):
         """
         The first argument of this function decides whether it will print the data on the console or not.
-        True = print, False or None = don't print.
+        True = print, False or None = dont print.
         """
         color = {
-            "Id": "",
-            "UID": "",
-            "Hex Value": "",
-            "Color Name": "",
-            "HSL Value": "",
-            "HSLA Value": "",
+            "RGB Value": "",
+            "Hex Value": ""
         }
-        response = requests.get(URL)
-        page = response.json()
+        
+        RED = random.randint(0,255)
+        GREEN = random.randint(0,255)
+        BLUE = random.randint(0,255)
 
-        Colourizer.id = page["id"]
-        Colourizer.uid = page["uid"]
-        Colourizer.hex_value = page["hex_value"]
-        Colourizer.color_name = page["color_name"]
-        Colourizer.hsl_value = page["hsl_value"]
-        Colourizer.hsla_value = page["hsla_value"]
+        Colourizer.rgb_value = f"({RED},{GREEN},{BLUE})"
+        Colourizer.hex_value = RGBtoHEX(RED, GREEN, BLUE)
 
-        color["Id"] = Colourizer.id
-        color["UID"] = Colourizer.uid
+        color["RGB Value"] = Colourizer.rgb_value
         color["Hex Value"] = Colourizer.hex_value
-        color["Color Name"] = Colourizer.color_name
-        color["HSL Value"] = Colourizer.hsl_value
-        color["HSLA Value"] = Colourizer.hsla_value
 
         if console == True:
             print(
-                f"""
+                f'''
             ************************************
-            * ID: {Colourizer.id} \r
-            * UID: {Colourizer.uid}
+            * RGB: {Colourizer.rgb_value} \r
             * Hex Value: {Colourizer.hex_value}
-            * Color Name: {Colourizer.color_name}
-            * HSL Value: {Colourizer.hsl_value}
-            * HSLA Value: {Colourizer.hsla_value}
             ************************************
-            """
+            '''
             )
         elif console == False:
             pass
         else:
-            raise ValueError(
-                "The first argument of this function must be True or False."
-            )
+            raise ValueError("The first argument of this function must be True or False.")
 
         return color
+    
+    
+    
 
-    def RGBtoHEX(RED: int, GREEN: int, BLUE: int) -> str:
-
-        if RED > 255 or GREEN > 255 or BLUE > 255:
-            raise ValueError("RGB values must be between 0 and 255.")
-        if RED < 0 or GREEN < 0 or BLUE < 0:
-            raise ValueError("RGB values must be between 0 and 255.")
-
-        hex_value = "#{:02x}{:02x}{:02x}".format(RED, GREEN, BLUE).upper()
-        return hex_value
-
-
-final = Colourizer.RGBtoHEX(54, 244, 222)
-print(final)

@@ -88,9 +88,9 @@ class Colourizer:
         match (alpha):
             case "r":
                 ALPHAval = random.random()
-                ALPHAval = "{:.2f}".format(ALPHAval)
+                ALPHAval = float("{:.2f}".format(ALPHAval))*100
                 Colourizer.rgba_value = f"({RED},{GREEN},{BLUE},{ALPHAval})"
-                Colourizer.hex_value = RGBtoHEX(RED, GREEN, BLUE)
+                Colourizer.hex_value = RGBtoHEX(RED, GREEN, BLUE, ALPHAval)
                 color["RGBA Value"] = Colourizer.rgba_value
                 color["Hex Value"] = Colourizer.hex_value
 
@@ -103,7 +103,7 @@ class Colourizer:
                  else:
                     ALPHAval = alpha
                     Colourizer.rgba_value = f"({RED},{GREEN},{BLUE},{ALPHAval})"
-                    Colourizer.hex_value = RGBtoHEX(RED, GREEN, BLUE)
+                    Colourizer.hex_value = RGBtoHEX(RED, GREEN, BLUE, ALPHAval)
                     color["RGBA Value"] = Colourizer.rgba_value
                     color["Hex Value"] = Colourizer.hex_value
 

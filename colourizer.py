@@ -88,7 +88,7 @@ class Colourizer:
         match (alpha):
             case "r":
                 ALPHAval = random.random()
-                ALPHAval = float("{:.2f}".format(ALPHAval))*100
+                ALPHAval = float("{:.2f}".format(ALPHAval))
                 Colourizer.rgba_value = f"({RED},{GREEN},{BLUE},{ALPHAval})"
                 Colourizer.hex_value = RGBtoHEX(RED, GREEN, BLUE, ALPHAval)
                 color["RGBA Value"] = Colourizer.rgba_value
@@ -97,7 +97,7 @@ class Colourizer:
             case alpha:
                  if alpha == None:
                     Colourizer.rgb_value = f"({RED},{GREEN},{BLUE})"
-                    Colourizer.hex_value = RGBtoHEX(RED, GREEN, BLUE)
+                    Colourizer.hex_value = RGBtoHEX(RED, GREEN, BLUE, None)
                     color["RGB Value"] = f"({RED},{GREEN},{BLUE})"
                     color["Hex Value"] = Colourizer.hex_value
                  else:
@@ -130,16 +130,10 @@ class Colourizer:
             """
                 )
 
-
-        elif console == False:
+        elif console == False or console == None:
             pass
-        else:
-            raise ValueError(
-                "The first argument of this function must be True or False."
-            )
-
         return color
 
 
-test = Colourizer.randColor(True,"r")
+test = Colourizer.randColor(True, 0.5)
 print(test)

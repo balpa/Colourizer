@@ -23,36 +23,6 @@ class Colourizer:
         self.hsl_value = hsl_value
         self.hsla_value = hsla_value
 
-    def randContinuously(speed: int = 1, console: bool = False):
-        """
-        The first argument is the speed of the loop. The second argument decides whether it will print the data on the console or not.
-        Speed is in seconds and the default value is defined as 1 second.
-
-        """
-        count = 0
-        while True:
-            count += 1
-            for x in range(0, 10000, 10):
-                if count == x:
-                    print(f"Iterated {count} times! ")
-
-            RED = random.randint(0, 255)
-            GREEN = random.randint(0, 255)
-            BLUE = random.randint(0, 255)
-
-            Colourizer.rgb_value = f"({RED},{GREEN},{BLUE})"
-            Colourizer.hex_value = RGBtoHEX(RED, GREEN, BLUE)
-
-            print(
-                f"""
-            ************************************
-            * RGB: {Colourizer.rgb_value} \r
-            * Hex Value: {Colourizer.hex_value}
-            ************************************
-            """
-            )
-            time.sleep(speed)
-
     # Random color generator function. RGB, RGBA and HEX formats
     def randColor(console: bool = False, alpha=None):
         """
@@ -107,9 +77,6 @@ class Colourizer:
                     color["RGBA Value"] = Colourizer.rgba_value
                     color["Hex Value"] = Colourizer.hex_value
 
-               
-
-
         if console == True:
             if alpha == None:
                 print(
@@ -134,6 +101,25 @@ class Colourizer:
             pass
         return color
 
+    # Random color genarator function with time argument. 
+    def randContinuously(speed: int = 1, console: bool = False):
+        """
+        The first argument is the speed of the loop. The second argument decides whether it will print the data or not.
+        Speed is in seconds and the default value is defined as 1 second.
+        Second argument is True or False and the default value is False.
 
-test = Colourizer.randColor(True, 0.5)
+        """
+        count = 0
+        while True:
+            count += 1
+            for x in range(0, 100000, 10):
+                if count == x:
+                    print(f"Iterated {count} times! ")
+
+            val = Colourizer.randColor(console)
+            print(val)
+            time.sleep(speed)
+
+
+test = Colourizer.randContinuously(0.1, True)
 print(test)
